@@ -2,107 +2,266 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Facture Express</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facture Express - CHEZ Mr BARRY</title>
     <style>
-        body { font-family: sans-serif; margin: 20px; }
-        .header { border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        input { width: 100%; padding: 5px; box-sizing: border-box; }
-        .btn { margin-top: 15px; padding: 10px 15px; background-color: #28a745; color: white; border: none; cursor: pointer; border-radius: 4px; margin-right: 5px; }
-        .btn:hover { background-color: #218838; }
-        .btn-delete { background-color: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
-        .btn-delete:hover { background-color: #c82333; }
-        .total-section { margin-top: 20px; text-align: right; font-size: 1.2em; font-weight: bold; }
-        .actions { margin-top: 20px; }
-        @media print {
-            .btn, .actions, button { display: none; }
-            input { border: none; background: transparent; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid #1a365d;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .company-info h2 {
+            margin: 0;
+            color: #1a365d;
+        }
+        .company-info p, .invoice-details p {
+            margin: 3px 0;
+            font-size: 13px;
+            color: #555;
+        }
+        .invoice-details {
+            text-align: right;
+        }
+        .client-section {
+            background: #f9f9f9;
+            padding: 10px 15px;
+            border-left: 4px solid #1a365d;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            font-size: 13px;
+        }
+        table th {
+            background-color: #1a365d;
+            color: white;
+        }
+        .total-section {
+            text-align: right;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .paid-stamp {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            border: 4px solid #e53e3e;
+            color: #e53e3e;
+            font-size: 60px;
+            font-weight: bold;
+            padding: 10px 30px;
+            letter-spacing: 5px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .remarks {
+            font-size: 12px;
+            background: #fffbea;
+            padding: 10px;
+            border: 1px solid #ffeeba;
+            margin-bottom: 20px;
+        }
+        .footer-signatures {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            font-size: 13px;
+        }
+        .signature-line {
+            border-top: 1px solid #333;
+            width: 200px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn {
+            background-color: #1a365d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .btn:hover {
+            background-color: #2b6cb0;
+        }
+        input, select {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 3px;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Facture Express</h1>
-        <p><strong>Nom de votre entreprise</strong></p>
-        <p>Adresse, Ville, Pays</p>
-        <p>Téléphone : 00 00 00 00</p>
-    </div>
-    
-    <h2>Facture pour :</h2>
-    <p>Nom du Client</p>
 
+<div class="invoice-box">
+    <div class="paid-stamp">PAID</div>
+
+    <!-- En-tête -->
+    <div class="header">
+        <div class="company-info">
+            <h2>CHEZ Mr BARRY</h2>
+            <p>ABOBO GARE, FACE PHARMACIE DE LA ME</p>
+            <p>ABIDJAN, DISTRICT AUTONOME D'ABIDJAN-989</p>
+            <p><strong>Contact :</strong> 0171629788</p>
+            <p><strong>E-mail :</strong> djibrilbarr998@gmail.com</p>
+        </div>
+        <div class="invoice-details">
+            <p><strong>INVOICE :</strong> 0006</p>
+            <p><strong>Date :</strong> <span id="current-date"></span></p>
+        </div>
+    </div>
+
+    <!-- Client -->
+    <div class="client-section">
+        <p><strong>POUR, CLIENT :</strong> <input type="text" id="client-name" value="Nom du Client"></p>
+        <p><strong>Contacter :</strong> <input type="text" id="client-phone" value="+225-76865851"></p>
+        <p><strong>Type de facture :</strong> Groceries</p>
+    </div>
+
+    <!-- Tableau des articles -->
     <table id="invoice-table">
         <thead>
             <tr>
-                <th>Description</th>
-                <th>Quantité</th>
-                <th>Prix Unitaire</th>
-                <th>Total</th>
+                <th>N°</th>
+                <th>ARTICLES</th>
+                <th>PRIX</th>
+                <th>QUANTITÉ</th>
+                <th>MONTANT</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td><input type="text" value="Prestation exemple"></td>
-                <td><input type="number" class="qty" value="1" oninput="calculer()"></td>
-                <td><input type="number" class="price" value="100" oninput="calculer()"></td>
-                <td class="row-total">100,00 €</td>
-                <td><button class="btn-delete" onclick="supprimerLigne(this)">X</button></td>
+                <td>1</td>
+                <td><input type="text" value="BEURRE AYA DEMIE CARTON"></td>
+                <td><input type="number" class="price" value="8250" oninput="calculateTotal()"></td>
+                <td><input type="number" class="qty" value="1" oninput="calculateTotal()"></td>
+                <td class="amount">8250 FCFA</td>
+                <td><button class="btn" style="background:#e53e3e; padding:5px 10px;" onclick="removeRow(this)">X</button></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><input type="text" value="CAHIER 100PAG PAQUET"></td>
+                <td><input type="number" class="price" value="3600" oninput="calculateTotal()"></td>
+                <td><input type="number" class="qty" value="1" oninput="calculateTotal()"></td>
+                <td class="amount">3600 FCFA</td>
+                <td><button class="btn" style="background:#e53e3e; padding:5px 10px;" onclick="removeRow(this)">X</button></td>
             </tr>
         </tbody>
     </table>
 
-    <div class="actions">
-        <button class="btn" onclick="ajouterLigne()">Ajouter un article</button>
-        <button class="btn" style="background-color: #007bff;" onclick="window.print()">Imprimer / Enregistrer en PDF</button>
-    </div>
+    <button class="btn" onclick="addRow()">+ Ajouter un article</button>
 
+    <!-- Total -->
     <div class="total-section">
-        Total général : <span id="grand-total">100,00 €</span>
+        TOTAL GENERAL : <span id="grand-total">11850</span> FCFA
     </div>
 
-    <script>
-        function calculer() {
-            let rows = document.querySelectorAll('#invoice-table tbody tr');
-            let grandTotal = 0;
+    <!-- Remarque / Paiement -->
+    <div class="remarks">
+        <p><strong>Remarque :</strong></p>
+        <p>Veuillez Payer Chez Mr Barry en cliquant sur ce lien : <a href="https://pay.wave.com/m/M_ci_G0higxqLpT/c/ci/" target="_blank">https://pay.wave.com/m/M_ci_G0higxqLpT/c/ci/</a></p>
+        <p>DJAMO CI201 01001 111239645485 03</p>
+    </div>
 
-            rows.forEach(row => {
-                let qty = row.querySelector('.qty').value || 0;
-                let price = row.querySelector('.price').value || 0;
-                let total = qty * price;
-                row.querySelector('.row-total').innerText = total.toFixed(2) + ' €';
-                grandTotal += total;
-            });
+    <!-- Signatures -->
+    <div class="footer-signatures">
+        <div>
+            <p>Signature du récepteur</p>
+            <div class="signature-line"></div>
+        </div>
+        <div style="text-align: right;">
+            <p>CHEZ Mr BARRY</p>
+            <div class="signature-line" style="margin-left: auto;">Signataire autorisé</div>
+        </div>
+    </div>
 
-            document.getElementById('grand-total').innerText = grandTotal.toFixed(2) + ' €';
-        }
+    <div style="text-align: center; margin-top: 30px; font-size: 12px; color: #777;">
+        MERCI BEAUCOUP POUR VOTRE FIDÉLITÉ
+    </div>
 
-        function ajouterLigne() {
-            let tbody = document.querySelector('#invoice-table tbody');
-            let newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td><input type="text" value="Nouvel article"></td>
-                <td><input type="number" class="qty" value="1" oninput="calculer()"></td>
-                <td><input type="number" class="price" value="0" oninput="calculer()"></td>
-                <td class="row-total">0,00 €</td>
-                <td><button class="btn-delete" onclick="supprimerLigne(this)">X</button></td>
-            `;
-            tbody.appendChild(newRow);
-            calculer();
-        }
+    <!-- Boutons d'action -->
+    <div class="actions">
+        <button class="btn" onclick="window.print()">Imprimer / Enregistrer en PDF</button>
+    </div>
+</div>
 
-        function supprimerLigne(button) {
-            let row = button.closest('tr');
-            let tbody = document.querySelector('#invoice-table tbody');
-            if (tbody.rows.length > 1) {
-                row.remove();
-                calculer();
-            } else {
-                alert("Vous devez garder au moins une ligne sur la facture.");
-            }
-        }
-    </script>
+<script>
+    // Afficher la date du jour automatiquement
+    document.getElementById('current-date').innerText = new Date().toLocaleDateString('fr-FR');
+
+    function calculateTotal() {
+        let rows = document.querySelectorAll('#invoice-table tbody tr');
+        let grandTotal = 0;
+
+        rows.forEach((row, index) => {
+            row.cells[0].innerText = index + 1;
+            let price = parseFloat(row.querySelector('.price').value) || 0;
+            let qty = parseFloat(row.querySelector('.qty').value) || 0;
+            let amount = price * qty;
+            row.querySelector('.amount').innerText = amount + ' FCFA';
+            grandTotal += amount;
+        });
+
+        document.getElementById('grand-total').innerText = grandTotal;
+    }
+
+    function addRow() {
+        let table = document.querySelector('#invoice-table tbody');
+        let newRow = table.insertRow();
+        newRow.innerHTML = `
+            <td></td>
+            <td><input type="text" value="Nouvel article"></td>
+            <td><input type="number" class="price" value="0" oninput="calculateTotal()"></td>
+            <td><input type="number" class="qty" value="1" oninput="calculateTotal()"></td>
+            <td class="amount">0 FCFA</td>
+            <td><button class="btn" style="background:#e53e3e; padding:5px 10px;" onclick="removeRow(this)">X</button></td>
+        `;
+        calculateTotal();
+    }
+
+    function removeRow(btn) {
+        let row = btn.closest('tr');
+        row.remove();
+        calculateTotal();
+    }
+</script>
+
 </body>
 </html>
