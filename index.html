@@ -5,336 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NANOBILLS - CHEZ Mr BARRY</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f9;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        header {
-            background-color: #1a5276;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 20px;
-            letter-spacing: 1px;
-        }
-        header p {
-            margin: 2px 0 0;
-            font-size: 12px;
-            color: #d4e6f1;
-        }
-        .nav-tabs {
-            display: flex;
-            background-color: #2980b9;
-            justify-content: space-around;
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        .nav-tabs div {
-            padding: 12px;
-            cursor: pointer;
-            flex: 1;
-            text-align: center;
-            border-bottom: 3px solid transparent;
-        }
-        .nav-tabs div.active {
-            background-color: #1a5276;
-            border-bottom: 3px solid #f1c40f;
-        }
-        .container {
-            padding: 15px;
-            max-width: 800px;
-            margin: auto;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        @media (max-width: 600px) {
-            .grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        .card {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            cursor: pointer;
-            transition: transform 0.1s, background 0.1s;
-        }
-        .card:hover {
-            transform: translateY(-2px);
-            background: #fdfefe;
-        }
-        .card .icon {
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-        .card h3 {
-            margin: 0;
-            font-size: 13px;
-            color: #2c3e50;
-        }
-        .section-title {
-            font-size: 13px;
-            color: #7f8c8d;
-            margin: 15px 0 8px 5px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .view-section {
-            display: none;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .view-section.active {
-            display: block;
-        }
-        .btn {
-            background-color: #2980b9;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            margin-top: 10px;
-        }
-        .btn:hover {
-            background-color: #1a5276;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin: 8px 0 15px 0;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        table th, table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            font-size: 13px;
-            text-align: left;
-        }
-        table th {
-            background-color: #f2f2f2;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; margin: 0; padding: 0; color: #333; }
+        header { background-color: #2c73d2; color: white; padding: 15px; }
+        .nav-bar { display: flex; background: #2c73d2; border-bottom: 3px solid #ff4081; }
+        .nav-item { flex: 1; text-align: center; padding: 12px; color: white; cursor: pointer; font-weight: bold; }
+        .nav-item.active { background: #1a529b; }
+        
+        .container { padding: 15px; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .card { background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); cursor: pointer; }
+        .card:hover { background: #f9f9f9; }
+        .icon { font-size: 24px; color: #ec407a; margin-bottom: 8px; }
+        .label { font-size: 11px; font-weight: bold; color: #555; }
+        
+        .section-title { font-size: 13px; color: #ec407a; margin: 20px 0 10px 5px; text-transform: uppercase; font-weight: bold; }
+        .settings-list { background: white; border-radius: 8px; padding: 0; margin: 0; list-style: none; }
+        .setting-item { padding: 15px; border-bottom: 1px solid #eee; display: flex; align-items: center; cursor: pointer; }
+        .setting-item span { margin-left: 15px; font-size: 14px; }
+
+        .page { display: none; }
+        .page.active { display: block; }
+        .btn-back { margin-top: 20px; width: 100%; padding: 15px; background: #2c73d2; color: white; border: none; border-radius: 5px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div>
-        <h1>NANOBILLS</h1>
-        <p>CHEZ Mr BARRY</p>
-    </div>
-    <div style="font-size: 20px; cursor: pointer;">🔔 ⋮</div>
+    <div style="font-size: 18px; font-weight: bold;">NANOBILLS</div>
+    <div style="font-size: 12px; color: #d1d1d1;">CHEZ Mr BARRY</div>
 </header>
 
-<div class="nav-tabs">
-    <div class="active" onclick="switchTab('accueil')">ACCUEIL</div>
-    <div onclick="switchTab('factures')">FACTURES</div>
-    <div onclick="switchTab('resume')">RÉSUMÉ</div>
+<div class="nav-bar">
+    <div class="nav-item active" onclick="showPage('accueil')">🏠</div>
+    <div class="nav-item" onclick="showPage('factures')">FACTURES</div>
+    <div class="nav-item" onclick="showPage('resume')">RÉSUMÉ</div>
 </div>
 
 <div class="container">
-
-    <!-- ACCUEIL / TABLEAU DE BORD -->
-    <div id="view-accueil" class="view-section active">
+    <!-- ECRAN ACCUEIL -->
+    <div id="page-accueil" class="page active">
         <div class="grid">
-            <div class="card" onclick="alert('Module de dépense rapide')">
-                <div class="icon">💳</div>
-                <h3>Ajouter une dépense</h3>
-            </div>
-            <div class="card" onclick="switchTab('factures')">
-                <div class="icon">⚡</div>
-                <h3>Facture rapide</h3>
-            </div>
-            <div class="card" onclick="alert('Terminal POS actif')">
-                <div class="icon">📠</div>
-                <h3>POS Terminal</h3>
-            </div>
-            <div class="card" onclick="alert('Paiement enregistré')">
-                <div class="icon">💵</div>
-                <h3>Ajouter un paiement</h3>
-            </div>
+            <div class="card" onclick="alert('Module Dépense')"><div class="icon">💳</div><div class="label">Ajouter<br>dépense</div></div>
+            <div class="card"><div class="icon">⚡</div><div class="label">Facture<br>rapide</div></div>
+            <div class="card"><div class="icon">📠</div><div class="label">POS<br>Terminal</div></div>
+            <div class="card"><div class="icon">💵</div><div class="label">Ajouter<br>paiement</div></div>
         </div>
-
         <div class="section-title">Rapport</div>
         <div class="grid">
-            <div class="card" onclick="switchTab('resume')">
-                <div class="icon">📖</div>
-                <h3>Registre</h3>
-            </div>
-            <div class="card" onclick="switchTab('resume')">
-                <div class="icon">📈</div>
-                <h3>Ventes</h3>
-            </div>
-            <div class="card" onclick="alert('Rapport d\'achats')">
-                <div class="icon">📊</div>
-                <h3>Achat</h3>
-            </div>
-            <div class="card" onclick="alert('Cotisations clients')">
-                <div class="icon">📑</div>
-                <h3>Cotisations du client</h3>
-            </div>
-            <div class="card" onclick="alert('Produits vendus')">
-                <div class="icon">📊</div>
-                <h3>Produits vendus</h3>
-            </div>
+            <div class="card"><div class="icon">📖</div><div class="label">Registre</div></div>
+            <div class="card"><div class="icon">📈</div><div class="label">Ventes</div></div>
+            <div class="card"><div class="icon">📊</div><div class="label">Achat</div></div>
         </div>
-
         <div class="section-title">Autres</div>
         <div class="grid">
-            <div class="card" onclick="switchTab('clients')">
-                <div class="icon">👤</div>
-                <h3>Les clients</h3>
-            </div>
-            <div class="card" onclick="switchTab('produits')">
-                <div class="icon">📋</div>
-                <h3>Des produits</h3>
-            </div>
-            <div class="card" onclick="alert('Gestion des stocks')">
-                <div class="icon">📦</div>
-                <h3>Inventaire</h3>
-            </div>
-            <div class="card" onclick="alert('Paramètres de l\'entreprise')">
-                <div class="icon">📍</div>
-                <h3>Adresse d'affaires</h3>
-            </div>
-            <div class="card" onclick="alert('Personnalisation')">
-                <div class="icon">⚙️</div>
-                <h3>Réglages</h3>
-            </div>
+            <div class="card" onclick="showPage('reglages')"><div class="icon">⚙️</div><div class="label">Réglages</div></div>
+            <div class="card"><div class="icon">👤</div><div class="label">Les clients</div></div>
+            <div class="card"><div class="icon">📦</div><div class="label">Inventaire</div></div>
         </div>
     </div>
 
-    <!-- GESTION DES CLIENTS -->
-    <div id="view-clients" class="view-section">
-        <h3>Répertoire des clients</h3>
-        <input type="text" id="client-input" placeholder="Nom du nouveau client">
-        <input type="text" id="phone-input" placeholder="Numéro de téléphone">
-        <button class="btn" onclick="addClient()">Ajouter le client</button>
-        <table id="client-table">
-            <tr><th>Nom</th><th>Téléphone</th></tr>
-        </table>
-        <button class="btn" style="background:#7f8c8d; margin-top:15px;" onclick="switchTab('accueil')">Retour</button>
+    <!-- ECRAN REGLAGES -->
+    <div id="page-reglages" class="page">
+        <h3>Réglages</h3>
+        <ul class="settings-list">
+            <li class="setting-item">🌐 <span>Région et langue</span></li>
+            <li class="setting-item">🖨️ <span>Impression</span></li>
+            <li class="setting-item">🔔 <span>Les notifications</span></li>
+            <li class="setting-item">⏰ <span>Des rappels</span></li>
+            <li class="setting-item">📅 <span>Fixer les jours d'échéance</span></li>
+            <li class="setting-item">💰 <span>Définir la monnaie</span></li>
+            <li class="setting-item">🖊️ <span>Set Signature</span></li>
+        </ul>
+        <div class="section-title">Sécurité</div>
+        <ul class="settings-list">
+            <li class="setting-item">🔒 <span>ÉPINGLE (PIN)</span></li>
+        </ul>
+        <button class="btn-back" onclick="showPage('accueil')">Retour au tableau de bord</button>
     </div>
-
-    <!-- GESTION DES PRODUITS -->
-    <div id="view-produits" class="view-section">
-        <h3>Catalogue de produits & Stock</h3>
-        <input type="text" id="prod-name" placeholder="Nom de l'article (ex: Lait Candia)">
-        <input type="number" id="prod-price" placeholder="Prix unitaire en FCFA">
-        <button class="btn" onclick="addProduct()">Ajouter au catalogue</button>
-        <table id="product-table">
-            <tr><th>Article</th><th>Prix (FCFA)</th></tr>
-        </table>
-        <button class="btn" style="background:#7f8c8d; margin-top:15px;" onclick="switchTab('accueil')">Retour</button>
-    </div>
-
-    <!-- FACTURES -->
-    <div id="view-factures" class="view-section">
-        <h3>Créer une Facture Rapide</h3>
-        <label>Client :</label>
-        <select id="invoice-client"><option>Client Divers</option></select>
-        <label>Article :</label>
-        <select id="invoice-product"><option>Aucun produit</option></select>
-        <label>Quantité :</label>
-        <input type="number" id="invoice-qty" value="1">
-        <button class="btn" onclick="alert('Facture générée avec succès !')">Générer et Imprimer</button>
-        <button class="btn" style="background:#7f8c8d; margin-top:15px;" onclick="switchTab('accueil')">Retour</button>
-    </div>
-
-    <!-- RÉSUMÉ -->
-    <div id="view-resume" class="view-section">
-        <h3>Résumé des Ventes</h3>
-        <p>Total des ventes du jour : <strong>36 450 FCFA</strong></p>
-        <p>Nombre de factures émises : <strong>1</strong></p>
-        <button class="btn" style="background:#7f8c8d; margin-top:15px;" onclick="switchTab('accueil')">Retour</button>
-    </div>
-
 </div>
 
 <script>
-    function switchTab(tabName) {
-        document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.nav-tabs div').forEach(el => el.classList.remove('active'));
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page-' + pageId).classList.add('active');
         
-        document.getElementById('view-' + tabName).classList.add('active');
-        if(tabName === 'accueil') document.querySelectorAll('.nav-tabs div')[0].classList.add('active');
-        if(tabName === 'factures') document.querySelectorAll('.nav-tabs div')[1].classList.add('active');
-        if(tabName === 'resume') document.querySelectorAll('.nav-tabs div')[2].classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        if(pageId === 'accueil') document.querySelectorAll('.nav-item')[0].classList.add('active');
     }
-
-    let clients = JSON.parse(localStorage.getItem('nanobills_clients')) || [];
-    let products = JSON.parse(localStorage.getItem('nanobills_products')) || [{name: 'BEURRE AYA DEMIE CARTON', price: 8250}];
-
-    function updateUI() {
-        let cTable = document.getElementById('client-table');
-        cTable.innerHTML = '<tr><th>Nom</th><th>Téléphone</th></tr>';
-        let cSelect = document.getElementById('invoice-client');
-        cSelect.innerHTML = '';
-        clients.forEach(c => {
-            cTable.innerHTML += `<tr><td>${c.name}</td><td>${c.phone}</td></tr>`;
-            cSelect.innerHTML += `<option>${c.name} (${c.phone})</option>`;
-        });
-
-        let pTable = document.getElementById('product-table');
-        pTable.innerHTML = '<tr><th>Article</th><th>Prix (FCFA)</th></tr>';
-        let pSelect = document.getElementById('invoice-product');
-        pSelect.innerHTML = '';
-        products.forEach(p => {
-            pTable.innerHTML += `<tr><td>${p.name}</td><td>${p.price} FCFA</td></tr>`;
-            pSelect.innerHTML += `<option>${p.name} - ${p.price} FCFA</option>`;
-        });
-    }
-
-    function addClient() {
-        let name = document.getElementById('client-input').value;
-        let phone = document.getElementById('phone-input').value;
-        if(name) {
-            clients.push({name, phone});
-            localStorage.setItem('nanobills_clients', JSON.stringify(clients));
-            document.getElementById('client-input').value = '';
-            document.getElementById('phone-input').value = '';
-            updateUI();
-        }
-    }
-
-    function addProduct() {
-        let name = document.getElementById('prod-name').value;
-        let price = document.getElementById('prod-price').value;
-        if(name && price) {
-            products.push({name, price});
-            localStorage.setItem('nanobills_products', JSON.stringify(products));
-            document.getElementById('prod-name').value = '';
-            document.getElementById('prod-price').value = '';
-            updateUI();
-        }
-    }
-
-    updateUI();
 </script>
 
 </body>
