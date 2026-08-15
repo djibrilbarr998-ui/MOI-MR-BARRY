@@ -1,30 +1,84 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>Facture Express</title>
     <style>
-      body { font-family: sans-serif; margin:20px; }
-      .header { border-bottom: 2px solid #33; padding-bottom: 10px; margin-bottom: 20px; }
-  </style>
-  </head>
-  <body>
-      <div class="header">
+        body { font-family: sans-serif; margin: 20px; }
+        .header { border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        input { width: 100%; padding: 5px; box-sizing: border-box; }
+        .btn { margin-top: 15px; padding: 10px 15px; background-color: #28a745; color: white; border: none; cursor: pointer; border-radius: 4px; }
+        .btn:hover { background-color: #218838; }
+        .total-section { margin-top: 20px; text-align: right; font-size: 1.2em; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="header">
         <h1>Facture Express</h1>
-          <p><strong>Nom de votre entreprise</strong></p>
-          <p>Adresse, Ville,pays</p>
-          <p>Téléphone : 00 00 00 00</p>
-      </div>
-      <h2>Facture pour :</h2>
-      <p>Nom du Client</p>
-  </body
-</html>
-      
+        <p><strong>Nom de votre entreprise</strong></p>
+        <p>Adresse, Ville, Pays</p>
+        <p>Téléphone : 00 00 00 00</p>
+    </div>
     
+    <h2>Facture pour :</h2>
+    <p>Nom du Client</p>
 
+    <table id="invoice-table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" value="Prestation exemple"></td>
+                <td><input type="number" class="qty" value="1" oninput="calculer()"></td>
+                <td><input type="number" class="price" value="100" oninput="calculer()"></td>
+                <td class="row-total">100,00 €</td>
+            </tr>
+        </tbody>
+    </table>
 
+    <button class="btn" onclick="ajouterLigne()">Ajouter un article</button>
 
+    <div class="total-section">
+        Total général : <span id="grand-total">100,00 €</span>
+    </div>
 
+    <script>
+        function calculer() {
+            let rows = document.querySelectorAll('#invoice-table tbody tr');
+            let grandTotal = 0;
 
+            rows.forEach(row => {
+                let qty = row.querySelector('.qty').value || 0;
+                let price = row.querySelector('.price').value || 0;
+                let total = qty * price;
+                row.querySelector('.row-total').innerText = total.toFixed(2) + ' €';
+                grandTotal += total;
+            });
 
-  
+            document.getElementById('grand-total').innerText = grandTotal.toFixed(2) + ' €';
+        }
+
+        function ajouterLigne() {
+            let tbody = document.querySelector('#invoice-table tbody');
+            let newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" value="Nouvel article"></td>
+                <td><input type="number" class="qty" value="1" oninput="calculer()"></td>
+                <td><input type="number" class="price" value="0" oninput="calculer()"></td>
+                <td class="row-total">0,00 €</td>
+            `;
+            tbody.appendChild(newRow);
+            calculer();
+        }
+    </script>
+</body>
+</html>
