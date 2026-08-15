@@ -1,30 +1,60 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>Facture Express</title>
     <style>
-      body { font-family: sans-serif; margin:20px; }
-      .header { border-bottom: 2px solid #33; padding-bottom: 10px; margin-bottom: 20px; }
-  </style>
-  </head>
-  <body>
-      <div class="header">
+        body { font-family: sans-serif; margin: 20px; }
+        .header { border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        input { width: 100%; padding: 5px; box-sizing: border-box; }
+        .total-section { margin-top: 20px; text-align: right; font-size: 1.2em; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="header">
         <h1>Facture Express</h1>
-          <p><strong>Nom de votre entreprise</strong></p>
-          <p>Adresse, Ville,pays</p>
-          <p>Téléphone : 00 00 00 00</p>
-      </div>
-      <h2>Facture pour :</h2>
-      <p>Nom du Client</p>
-  </body
-</html>
-      
+        <p><strong>Nom de votre entreprise</strong></p>
+        <p>Adresse, Ville, Pays</p>
+        <p>Téléphone : 00 00 00 00</p>
+    </div>
     
+    <h2>Facture pour :</h2>
+    <p>Nom du Client</p>
 
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" value="Prestation exemple"></td>
+                <td><input type="number" id="qty" value="1" oninput="calculer()"></td>
+                <td><input type="number" id="price" value="100" oninput="calculer()"></td>
+                <td id="total">100,00 €</td>
+            </tr>
+        </tbody>
+    </table>
 
+    <div class="total-section">
+        Total général : <span id="grand-total">100,00 €</span>
+    </div>
 
-
-
-
-  
+    <script>
+        function calculer() {
+            let qty = document.getElementById('qty').value;
+            let price = document.getElementById('price').value;
+            let total = qty * price;
+            document.getElementById('total').innerText = total.toFixed(2) + ' €';
+            document.getElementById('grand-total').innerText = total.toFixed(2) + ' €';
+        }
+    </script>
+</body>
+</html>
